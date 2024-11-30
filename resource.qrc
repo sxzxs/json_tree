@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/style">
+        <file>resource/style/black.qss</file>
+    </qresource>
+</RCC>

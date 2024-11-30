@@ -1,0 +1,36 @@
+{
+    "Actors": [
+        {
+            "Birthdate": "July 3, 1962",
+            "Born At": "Syracuse, NY",
+            "age": "56",
+            "children": [
+                "Suri",
+                "Isabella Jane",
+                "Connor"
+            ],
+            "hasChildren": "true",
+            "hasGreyHair": "false",
+            "name": "Tom Cruise",
+            "photo": "https://jsonformatter.org/img/tom-cruise.jpg",
+            "weight": "67.5",
+            "wife": ""
+        },
+        {
+            "Birthdate": "April 4, 1965",
+            "Born At": "New York City, NY",
+            "age": "53",
+            "children": [
+                "Indio Falconer",
+                "Avri Roel",
+                "Exton Elias"
+            ],
+            "hasChildren": "true",
+            "hasGreyHair": "false",
+            "name": "Robert Downey Jr.",
+            "photo": "https://jsonformatter.org/img/Robert-Downey-Jr.jpg",
+            "weight": "77.1",
+            "wife": "Susan Downey"
+        }
+    ]
+}
