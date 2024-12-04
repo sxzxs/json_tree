@@ -58,7 +58,8 @@ void convertStandItemToVariant(const QStandardItem *item, QVariant &variant)
     {
         QStandardItem *parentItem = item->parent();
         int currentRow = item->row();
-        variant = parentItem->child(currentRow, 1)->text();
+        //variant = parentItem->child(currentRow, 1)->text();
+        variant = parentItem->child(currentRow, 1)->data();
     }
 }
 
@@ -92,9 +93,45 @@ void convertVariantToStandardItem(const QVariant& variant, QString key, QStandar
         QList<QStandardItem*> items;
         QStandardItem* colum_key = new QStandardItem(key);
         QStandardItem* colum_value = new QStandardItem(variant.toString());
+        colum_value->setData(variant);
+        if(variant.type() == QVariant::String)
+        {
+            colum_value->setIcon(QIcon(":/varianttree/resources/text.png"));
+        }
+        else if(variant.type() == QVariant::Bool)
+        {
+            colum_value->setIcon(QIcon(":/varianttree/resources/check.png"));
+        }
+        else
+        {
+            colum_value->setIcon(QIcon(":/varianttree/resources/number.png"));
+        }
         items.append(colum_key);
         items.append(colum_value);
         item->appendRow(items);
     }
     return;
+}
+
+void standarditem_add_item(QStandardItem *parent, const QString key, const QVariant &value)
+{
+    QList<QStandardItem*> items;
+    QStandardItem* colum_key = new QStandardItem(key);
+    QStandardItem* colum_value = new QStandardItem(value.toString());
+    colum_value->setData(value);
+    if(value.type() == QVariant::String)
+    {
+        colum_value->setIcon(QIcon(":/varianttree/resources/text.png"));
+    }
+    else if(value.type() == QVariant::Bool)
+    {
+        colum_value->setIcon(QIcon(":/varianttree/resources/check.png"));
+    }
+    else
+    {
+        colum_value->setIcon(QIcon(":/varianttree/resources/number.png"));
+    }
+    items.append(colum_key);
+    items.append(colum_value);
+    parent->appendRow(items);
 }

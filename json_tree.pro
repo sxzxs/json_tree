@@ -19,16 +19,13 @@ include(varianttree/varianttree.pri)
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp \
-    treeviewinputdialog.cpp
+    mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h \
-    treeviewinputdialog.h
+    mainwindow.h
 
 FORMS += \
-    mainwindow.ui \
-    treeviewinputdialog.ui
+    mainwindow.ui
 
 TRANSLATIONS += \
     demo1_zh_CN.ts

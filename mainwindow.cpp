@@ -12,8 +12,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
+#include "varianttree/editdelegate.h"
 #include "varianttree/varianttree.h"
-#include "treeviewinputdialog.h"
+#include "varianttree/treeviewinputdialog.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -77,7 +78,10 @@ MainWindow::MainWindow(QWidget *parent)
     list.append(a);
     model->item(0, 0)->child(0, 0)->child(0, 0)->child(0, 1)->appendRow(list);
 
+    ui->treeView->setAlternatingRowColors(true);
     ui->treeView->setModel(model);
+    m_edit_dele = new EditDelegate(model, this);
+    ui->treeView->setItemDelegate(m_edit_dele);
     QVariant vr;
     qDebug() << vr;
 
@@ -88,6 +92,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     QObject::connect(ui->treeView, &QTreeView::customContextMenuRequested, this, &MainWindow::show_treeview_context_menue);
+    QObject::connect(ui->treeView, &QTreeView::clicked, this, &MainWindow::on_item_clicked);
+}
+void MainWindow::on_item_clicked(const QModelIndex &index)
+{
+    qDebug() << index;
+    qDebug() << model->itemFromIndex(index)->data();
 }
 
 void MainWindow::show_treeview_context_menue(const QPoint &pos)
@@ -100,6 +110,14 @@ void MainWindow::show_treeview_context_menue(const QPoint &pos)
     QAction *action2 = contextMenu.addAction("Action 2");
     contextMenu.addSeparator();
     QAction *action3 = contextMenu.addAction("Action 3");
+
+    QFile style_file(":/qdarkstyle/style.qss");
+    if(style_file.open(QFile::ReadOnly))
+    {
+        QString style = style_file.readAll();
+        contextMenu.setStyleSheet(style);
+        qDebug() << "set style ok";
+    }
 
     // 显示菜单并获取用户选择
     QAction *selectedAction = contextMenu.exec(globalPos);
@@ -119,7 +137,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_loadjson_clicked()
 {
-    QVariant mp = loadJson("F:\\vs-project\\qttest\\demo1\\in.json");
+    QVariant mp = loadJson(m_json_dir.path());
     auto root = model->invisibleRootItem();
     root->removeRow(0);
     convertVariantToStandardItem(mp, "root", root);
@@ -153,12 +171,7 @@ void MainWindow::on_addchild_clicked()
             return;
         }
 
-        QList<QStandardItem *> list;
-        QStandardItem *a = new QStandardItem(input_dialog->get_key());
-        QStandardItem *b = new QStandardItem(input_dialog->get_value());
-        list.append(a);
-        list.append(b);
-        model->itemFromIndex(indexs.first())->appendRow(list);
+        standarditem_add_item(model->itemFromIndex(indexs.first()), input_dialog->get_key(), input_dialog->get_value());
     }
 }
 

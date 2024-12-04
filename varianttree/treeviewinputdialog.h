@@ -2,6 +2,7 @@
 #define TREEVIEWINPUTDIALOG_H
 
 #include <QDialog>
+#include <QVariant>
 
 namespace Ui {
 class TreeviewInputDialog;
@@ -16,7 +17,10 @@ public:
     ~TreeviewInputDialog();
 
     QString get_key();
-    QString get_value();
+    QVariant get_value();
+
+public slots:
+    void on_current_index_changed(int index);
 
 private:
     QString m_key;

@@ -12,4 +12,6 @@ void convertStandItemToVariant(const QStandardItem *item, QVariant &variant);
 
 void convertVariantToStandardItem(const QVariant& variant, QString key, QStandardItem *item);
 
+void standarditem_add_item(QStandardItem *parent, const QString key, const QVariant &value);
+
 #endif
