@@ -6,10 +6,12 @@
 #include <QFile>
 #include <QHeaderView>
 #include <QDebug>
+#include <QRegExp>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setWindowIcon(QIcon(":/style/resource/image/tree.png"));
     MainWindow w;
     w.show();
 
@@ -20,5 +22,6 @@ int main(int argc, char *argv[])
         w.setStyleSheet(style);
         qDebug() << "set style ok";
     }
+
     return a.exec();
 }

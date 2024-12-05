@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/style">
         <file>resource/style/black.qss</file>
+        <file>resource/image/tree.png</file>
     </qresource>
 </RCC>

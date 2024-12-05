@@ -93,11 +93,24 @@ MainWindow::MainWindow(QWidget *parent)
     ui->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
     QObject::connect(ui->treeView, &QTreeView::customContextMenuRequested, this, &MainWindow::show_treeview_context_menue);
     QObject::connect(ui->treeView, &QTreeView::clicked, this, &MainWindow::on_item_clicked);
+
+    statusBar()->showMessage("Ready", 10000);
 }
 void MainWindow::on_item_clicked(const QModelIndex &index)
 {
     qDebug() << index;
     qDebug() << model->itemFromIndex(index)->data();
+    qDebug() << index.row() << " " << index.column();
+    auto my_index = index;
+    QString path("");
+
+    while(my_index.isValid())
+    {
+        qDebug() << my_index.row() << " " << my_index.data();
+        path = my_index.data().toString() + tr("/") + path;
+        my_index = my_index.parent();
+    }
+    statusBar()->showMessage("path: " + path);
 }
 
 void MainWindow::show_treeview_context_menue(const QPoint &pos)
